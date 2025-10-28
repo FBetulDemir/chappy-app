@@ -22,20 +22,56 @@ router.post(
     req: Request<{}, RegisterResponse, RegisterBody>,
     res: Response<RegisterResponse>
   ) => {
-    const body = registerSchema.parse(req.body);
-    console.log("body", body);
+    const body = registerSchema.safeParse(req.body);
+    // console.log("body", body);
+
+    if (!body.success) {
+      return res.status(400).send({
+        success: false,
+        message: body.error.message || "Invalid input",
+      });
+    }
+
+    const { username, password, email } = body.data;
+    const usernameLower = username.trim().toLowerCase();
+
+    // Check if username already exists
+    // Using Scan
+    const existing = await db.send(
+      new ScanCommand({
+        TableName: tableName,
+        FilterExpression: "#pk = :pk AND #uname = :uname",
+        ExpressionAttributeNames: {
+          "#pk": "PK",
+          "#uname": "usernameLower",
+        },
+        ExpressionAttributeValues: {
+          ":pk": "USER",
+          ":uname": usernameLower,
+        },
+      })
+    );
+
+    if (existing.Items && existing.Items.length > 0) {
+      // if username already taken
+      return res.status(409).send({
+        success: false,
+        message: "User already exists!",
+      });
+    }
 
     const newId = crypto.randomUUID();
 
     const salt: string = await genSalt();
-    const hashed: string = await hash(body.password, salt);
+    const hashed: string = await hash(password, salt);
 
     const command = new PutCommand({
       TableName: tableName,
       Item: {
-        username: body.username,
+        username,
+        usernameLower,
         password: hashed,
-        email: body.email,
+        email: email,
         description: "Registered user; can join locked channels and send DMs",
         accessLevel: "user",
         PK: "USER",
@@ -43,7 +79,7 @@ router.post(
       },
     });
     try {
-      const result = await db.send(command);
+      await db.send(command);
       const token: string | null = createToken(newId);
       res.send({ success: true, token: token });
     } catch (error) {
