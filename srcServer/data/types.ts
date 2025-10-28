@@ -31,3 +31,18 @@ export interface UserItem {
   accessLevel: string;
   passwordHash: string;
 }
+
+export interface UserResponse {
+  username: string;
+  email?: string;
+  userId: string;
+  accessLevel: string;
+}
+export interface UserIdParam {
+  userId: string;
+}
+
+export interface Payload {
+  userId: string;
+  accessLevel: string;
+}

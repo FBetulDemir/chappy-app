@@ -4,6 +4,7 @@ import { logger } from "./middleware.js";
 import channelRouter from "./routes/channels/channels.js";
 import registerUserRouter from "./routes/users/registerUser.js";
 import loginRouter from "./routes/users/login.js";
+import deleteRouter from "./routes/users/deleteUser.js";
 
 const app = express();
 const port: number = Number(process.env.PORT) || 1337;
@@ -16,6 +17,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/channels", channelRouter);
 app.use("/api/registerUser", registerUserRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/delete", deleteRouter);
 
 app.listen(port, (error) => {
   if (error) {

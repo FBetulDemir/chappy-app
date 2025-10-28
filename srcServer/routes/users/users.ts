@@ -1,21 +1,10 @@
 import express from "express";
 import type { Router, Request, Response } from "express";
 import { db, tableName } from "../../data/dynamoDb.js";
-import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
+import type { UserResponse } from "../../data/types.js";
 
 const router: Router = express.Router();
-
-interface UserResponse {
-  username: string;
-  email?: string;
-  userId: string;
-  accessLevel: string;
-}
-interface UserIdParam {
-  userId: string;
-}
 
 router.get("/", async (req: Request, res: Response<void | UserResponse[]>) => {
   try {
