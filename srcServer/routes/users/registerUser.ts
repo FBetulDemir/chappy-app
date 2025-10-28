@@ -6,10 +6,13 @@ import type {
   RegisterBody,
   RegisterResponse,
   UserBody,
+  UserItem,
 } from "../../data/types.js";
 import { genSalt, hash } from "bcrypt";
 import { createToken } from "../../auth/auth.js";
 import crypto from "crypto";
+
+import { registerSchema } from "../../validation/validation.js";
 
 const router: Router = express.Router();
 
@@ -19,7 +22,7 @@ router.post(
     req: Request<{}, RegisterResponse, RegisterBody>,
     res: Response<RegisterResponse>
   ) => {
-    const body = req.body;
+    const body = registerSchema.parse(req.body);
     console.log("body", body);
 
     const newId = crypto.randomUUID();
@@ -32,6 +35,7 @@ router.post(
       Item: {
         username: body.username,
         password: hashed,
+        email: body.email,
         description: "Registered user; can join locked channels and send DMs",
         accessLevel: "user",
         PK: "USER",
@@ -44,7 +48,7 @@ router.post(
       res.send({ success: true, token: token });
     } catch (error) {
       console.log(`registerUser.ts fel:`, (error as any)?.message);
-      res.status(500).send({ success: false });
+      res.status(500).send({ success: false, message: "Server error" });
     }
   }
 );

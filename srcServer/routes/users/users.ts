@@ -9,6 +9,7 @@ const router: Router = express.Router();
 
 interface UserResponse {
   username: string;
+  email?: string;
   userId: string;
   accessLevel: string;
 }

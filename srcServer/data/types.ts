@@ -1,6 +1,7 @@
 export type RegisterBody = {
   username: string;
   password: string;
+  email?: string;
 };
 
 export type RegisterResponse = {
@@ -26,6 +27,7 @@ export interface UserItem {
   SK: string;
   username: string;
   password: string;
+  email?: string;
   accessLevel: string;
   passwordHash: string;
 }
