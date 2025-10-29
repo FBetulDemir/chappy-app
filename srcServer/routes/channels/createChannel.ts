@@ -3,19 +3,29 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import type { Router, Request, Response } from "express";
 import { db, tableName } from "../../data/dynamoDb.js";
 import crypto from "crypto";
+import type { Payload } from "../../data/types.js";
+import { validateJwt } from "../../auth/validateJwt.js";
 
 const router: Router = express.Router();
 
 router.post("/", async (req: Request, res: Response) => {
   const { name, locked } = req.body;
-  //user will come from a function that checks token from the request to see if the user have authorization to create
-  //const ownerUserId = user.userId;
-  const ownerId = req.params.userId;
 
-  if (!name || !ownerId) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Missing name or ownerId" });
+  //userId comes from the function validateJwt() that checks token from the request to see if the user have authorization to create a channel
+
+  const maybePayload: Payload | null = validateJwt(
+    req.headers["authorization"]
+  );
+  if (!maybePayload) {
+    console.log("Validation of JWT failed");
+    res.sendStatus(401);
+    return;
+  }
+
+  const ownerId = maybePayload.userId;
+
+  if (!ownerId) {
+    return res.status(400).json({ success: false, message: "Missing ownerId" });
   }
 
   const channelId = crypto.randomUUID();
