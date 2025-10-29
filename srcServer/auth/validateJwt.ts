@@ -6,9 +6,7 @@ export function validateJwt(authHeader: string | undefined): Payload | null {
   if (!authHeader) {
     return null;
   }
-  const token: string = authHeader.startsWith("Bearer ")
-    ? authHeader.slice(7)
-    : authHeader;
+  const token: string = authHeader.substring(7);
 
   try {
     const decodedPayload: Payload = jwt.verify(
