@@ -3,12 +3,12 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import type { Router, Request, Response } from "express";
 import { db, tableName } from "../../data/dynamoDb.js";
 import crypto from "crypto";
-import type { Payload } from "../../data/types.js";
+import type { ChannelBody, Payload } from "../../data/types.js";
 import { validateJwt } from "../../auth/validateJwt.js";
 
 const router: Router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", async (req: Request<{}, ChannelBody>, res: Response) => {
   const { name, locked } = req.body;
 
   //userId comes from the function validateJwt() that checks token from the request to see if the user have authorization to create a channel

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import type { Payload } from "../data/types.js";
 
 export function validateJwt(authHeader: string | undefined): Payload | null {
-  // 'Bearer: token'
+  //it looks like 'Bearer: token'
   if (!authHeader) {
     return null;
   }
@@ -14,7 +14,7 @@ export function validateJwt(authHeader: string | undefined): Payload | null {
       process.env.JWT_SECRET || ""
     ) as Payload;
 
-    // validera decodedPayload
+    // validate decodedPayload
     const payload: Payload = {
       userId: decodedPayload.userId,
       accessLevel: decodedPayload.accessLevel,

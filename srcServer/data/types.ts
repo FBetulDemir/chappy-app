@@ -1,3 +1,31 @@
+//used for body with request : /channel
+export type ChannelBody = {
+  name: string;
+  channelId: string;
+  ownerId: string;
+  locked: boolean;
+};
+
+export type ChannelResponse = {
+  success: boolean;
+  token?: string;
+  message?: string;
+};
+
+export interface ChannelItem {
+  PK: string;
+  SK: string;
+  name: string;
+  channelId: string;
+  ownerId: string;
+  locked: boolean;
+}
+
+export interface ChannelIdParam {
+  channelId: string;
+}
+
+//used for body with request : /registerUser
 export type RegisterBody = {
   username: string;
   password: string;
@@ -10,7 +38,7 @@ export type RegisterResponse = {
   message?: string;
 };
 
-// Används för body vid request: /login och /register
+//used for body with request : /registerUser och /login
 export interface UserBody {
   username: string;
   password: string;

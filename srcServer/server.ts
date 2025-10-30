@@ -6,6 +6,7 @@ import registerUserRouter from "./routes/users/registerUser.js";
 import loginRouter from "./routes/users/login.js";
 import deleteRouter from "./routes/users/deleteUser.js";
 import createChannelRouter from "./routes/channels/createChannel.js";
+import deleteChannelRouter from "./routes/channels/deleteChannel.js";
 
 const app = express();
 const port: number = Number(process.env.PORT) || 1337;
@@ -24,6 +25,8 @@ app.use("/api/delete", deleteRouter);
 //endpoints for channel
 app.use("/api/channels/create", createChannelRouter);
 app.use("/api/channels", channelRouter);
+app.use("/api/channels/delete", deleteChannelRouter);
+
 app.listen(port, (error) => {
   if (error) {
     console.log("Server could not start! ", error.message);
