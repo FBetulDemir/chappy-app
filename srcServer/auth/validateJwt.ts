@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import type { Payload } from "../data/types.js";
+import type { Request, Response } from "express";
 
 export function validateJwt(authHeader: string | undefined): Payload | null {
   //it looks like 'Bearer: token'
@@ -24,4 +25,14 @@ export function validateJwt(authHeader: string | undefined): Payload | null {
     console.log("JWT verify failed: ", (error as any)?.message);
     return null;
   }
+}
+
+// Helper function to require user authentication in Express routes
+export function requireUser(req: Request<any>, res: Response): Payload | null {
+  const payload = validateJwt(req.headers["authorization"]);
+  if (!payload) {
+    res.status(401).json({ error: "Login required" });
+    return null;
+  }
+  return payload;
 }

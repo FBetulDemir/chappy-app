@@ -74,3 +74,32 @@ export interface Payload {
   userId: string;
   accessLevel: string;
 }
+
+// Used for body with request: /messages
+
+export interface MessageBody {
+  channelId?: string;
+  text?: string;
+}
+
+export interface DMBody {
+  text: string;
+}
+
+export interface MessageResponse {
+  success: boolean;
+  messageId?: string;
+  createdAt?: string;
+  error?: string;
+  message?: string;
+}
+
+// Used for params: /messages/dm/:receiverId
+export interface ReceiverIdParam {
+  receiverId: string;
+}
+
+// Used for params: /messages/dm/:withUserId
+export interface WithUserIdParam {
+  withUserId: string;
+}

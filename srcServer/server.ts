@@ -7,6 +7,8 @@ import loginRouter from "./routes/users/login.js";
 import deleteRouter from "./routes/users/deleteUser.js";
 import createChannelRouter from "./routes/channels/createChannel.js";
 import deleteChannelRouter from "./routes/channels/deleteChannel.js";
+import messageRouter from "./routes/messages/sendMessages.js";
+import allMessagesRouter from "./routes/messages/messages.js";
 
 const app = express();
 const port: number = Number(process.env.PORT) || 1337;
@@ -26,6 +28,10 @@ app.use("/api/delete", deleteRouter);
 app.use("/api/channels/create", createChannelRouter);
 app.use("/api/channels", channelRouter);
 app.use("/api/channels/delete", deleteChannelRouter);
+
+//endpoints for messages
+app.use("/api/messages", messageRouter);
+app.use("/api/messages", allMessagesRouter);
 
 app.listen(port, (error) => {
   if (error) {
