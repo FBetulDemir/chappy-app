@@ -1,0 +1,56 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--third-color);
+  padding: 2em 4em;
+  text-align: center;
+  gap: 1em;
+}
+
+.chat-icon {
+  font-size: 3rem;
+  margin-bottom: 2em;
+}
+
+.btn-primary {
+  background-color: #fca311;
+  border: none;
+  color: #000;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #ffb733;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #fca311;
+  color: var(--third-color);
+  width: 100%;
+}
+
+.btn-secondary:hover {
+  background-color: #fca311;
+  color: #000;
+}
+
+.btn-guest {
+  background-color: #fca311;
+  border: 2px solid #fff8f8;
+  color: #000;
+  width: 100%;
+}
+
+.btn-guest:hover {
+  background-color: #ffb733;
+}
