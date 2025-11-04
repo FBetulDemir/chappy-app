@@ -92,6 +92,7 @@ export interface MessageResponse {
   createdAt?: string;
   error?: string;
   message?: string;
+  userId?: string;
 }
 
 // Used for params: /messages/dm/:receiverId
@@ -102,4 +103,8 @@ export interface ReceiverIdParam {
 // Used for params: /messages/dm/:withUserId
 export interface WithUserIdParam {
   withUserId: string;
+}
+
+export interface ChannelIdParam {
+  channelId: string;
 }

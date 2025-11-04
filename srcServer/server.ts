@@ -7,7 +7,7 @@ import loginRouter from "./routes/users/login.js";
 import deleteRouter from "./routes/users/deleteUser.js";
 import createChannelRouter from "./routes/channels/createChannel.js";
 import deleteChannelRouter from "./routes/channels/deleteChannel.js";
-import messageRouter from "./routes/messages/sendMessages.js";
+import messageRouter from "./routes/messages/channelMessage.js";
 import allMessagesRouter from "./routes/messages/messages.js";
 
 const app = express();
