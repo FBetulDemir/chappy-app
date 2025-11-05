@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/login.css";
+import "../styles/Login.css";
 import "../index.css";
 
 interface FormData {
@@ -61,7 +61,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>login</h1>
+        <h1>Login</h1>
         <form onSubmit={handleSubmitLogin} className="login-form">
           <input
             type="text"
