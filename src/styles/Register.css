@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 50vh;
   color: var(--third-color);
 }
 
@@ -13,11 +14,20 @@
 .register-form {
   display: flex;
   flex-direction: column;
+  width: 50%;
   color: var(--third-color);
   gap: 1em;
   input {
     color: var(--third-color);
+    height: 2.5em;
+    margin-top: 1em;
+    border-radius: 12px;
   }
+}
+
+.register-form input placeholder {
+  padding: 1em;
+  text-align: center;
 }
 
 .msg {
@@ -30,4 +40,13 @@
 }
 .msg.success {
   color: #3ddc84;
+}
+
+.back-link {
+  color: var(--logo-color);
+  padding: 2em;
+}
+
+.back-home {
+  margin: 1em 2em;
 }

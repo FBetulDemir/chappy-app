@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 50vh;
   color: var(--third-color);
 }
 
@@ -13,6 +14,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   color: var(--third-color);
   gap: 1em;
   input {
@@ -30,4 +32,13 @@
 }
 .msg.success {
   color: #3ddc84;
+}
+
+.back-link {
+  color: var(--logo-color);
+  padding: 2em;
+}
+
+.back-home {
+  margin: 1em 2em;
 }

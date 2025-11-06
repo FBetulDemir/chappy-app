@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/Login.css";
 import "../index.css";
+import { Link } from "react-router";
 
 interface FormData {
   username: string;
@@ -17,9 +18,6 @@ const Login = () => {
 
   const [loginErrorMessage, setLoginErrorMessage] = useState<string>("");
   const [loginSuccessMessage, setLoginSuccessMessage] = useState<string>("");
-  //   const [username, setUsername] = useState<string>("");
-  //   const [password, setPassword] = useState<string>("");
-  // const [users, setUsers] = useState<UserResponse[]>([])
 
   const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,6 +58,11 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <div className="back-home">
+        <Link to="/" className="back-link">
+          Tillbaka
+        </Link>
+      </div>
       <div className="login-card">
         <h1>Login</h1>
         <form onSubmit={handleSubmitLogin} className="login-form">

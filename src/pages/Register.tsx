@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/Register.css";
 import "../index.css";
+import { Link } from "react-router";
 
 interface FormData {
   username: string;
@@ -49,6 +50,11 @@ const Register = () => {
   };
   return (
     <div className="register-container">
+      <div className="back-home">
+        <Link to="/" className="back-link">
+          Tillbaka
+        </Link>
+      </div>
       <div className="register-card">
         <h1>Register</h1>
         <form onSubmit={handleSubmitRegister} className="register-form">
