@@ -1,0 +1,23 @@
+.side-bar {
+  color: var(--third-color);
+  width: 40%;
+}
+
+.channel-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.channel-link {
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #eaeef3;
+}
+.channel-link:hover {
+  background: #2c2f33;
+}
+.channel-link.active {
+  background: #2c2f33;
+  outline: 1px solid #ffb84d66;
+}

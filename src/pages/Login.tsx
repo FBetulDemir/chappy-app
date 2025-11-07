@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/Login.css";
 import "../index.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface FormData {
   username: string;
@@ -18,6 +18,8 @@ const Login = () => {
 
   const [loginErrorMessage, setLoginErrorMessage] = useState<string>("");
   const [loginSuccessMessage, setLoginSuccessMessage] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ const Login = () => {
 
         console.log("Inloggningen lyckades", formData.username);
         setLoginSuccessMessage("Inloggningen lyckades!");
+        navigate("/channels");
       } else {
         setLoginErrorMessage("Felaktigt användarnamn eller lösenord!");
         localStorage.removeItem(LS_KEY);
