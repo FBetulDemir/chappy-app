@@ -1,3 +1,4 @@
+import ChannelMessages from "../components/ChannelMessages";
 import SideBarChannels from "../components/SideBarChannels";
 
 const Channels = () => {
@@ -6,6 +7,9 @@ const Channels = () => {
       <div className="left-side">
         <SideBarChannels />
       </div>
+      <main className="right-side content">
+        <ChannelMessages />
+      </main>
     </div>
   );
 };

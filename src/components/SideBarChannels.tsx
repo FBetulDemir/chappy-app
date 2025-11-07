@@ -13,11 +13,14 @@ const SideBarChannels = () => {
       const res = await fetch("/api/channels");
       const data = await res.json();
       setChannels(
-        (data || []).map((c: any) => ({
-          channelId: c.channelId ?? c.SK?.replace("CHANNEL#", ""),
-          name: c.name,
-          locked: !!c.locked,
-        }))
+        (data || [])
+          //  only channels
+          .filter((channel: any) => channel.SK === "META")
+          .map((channel: any) => ({
+            channelId: channel.channelId,
+            name: channel.name,
+            locked: !!channel.locked,
+          }))
       );
     })();
   }, []);
