@@ -1,4 +1,5 @@
-import ChannelMessages from "../components/ChannelMessages";
+import { Outlet } from "react-router";
+
 import SideBarChannels from "../components/SideBarChannels";
 
 const Channels = () => {
@@ -8,7 +9,7 @@ const Channels = () => {
         <SideBarChannels />
       </div>
       <main className="right-side content">
-        <ChannelMessages />
+        <Outlet />
       </main>
     </div>
   );
