@@ -33,12 +33,29 @@ router.post(
     const messageId = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
+    // Sender
     await db.send(
       new PutCommand({
         TableName: tableName,
         Item: {
           PK: `USER#${auth.userId}`,
           SK: `DM#${receiverId}#${createdAt}#${messageId}`,
+          type: "DM",
+          senderId: auth.userId,
+          receiverId,
+          text: text.trim(),
+          createdAt,
+        },
+      })
+    );
+
+    // Receiver
+    await db.send(
+      new PutCommand({
+        TableName: tableName,
+        Item: {
+          PK: `USER#${receiverId}`,
+          SK: `DM#${auth.userId}#${createdAt}#${messageId}`,
           type: "DM",
           senderId: auth.userId,
           receiverId,

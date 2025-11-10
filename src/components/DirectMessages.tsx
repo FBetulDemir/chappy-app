@@ -80,8 +80,6 @@ const DirectMessages = () => {
         ))}
       </div>
 
-      <hr />
-
       {/* right side messages */}
       {withUserId && (
         <>
@@ -90,11 +88,21 @@ const DirectMessages = () => {
           </h3>
 
           <div>
-            {messages.map((m) => (
-              <div key={m.SK}>
-                <strong>{m.senderId}:</strong> {m.text}
-              </div>
-            ))}
+            {messages.map((m) => {
+              const sender =
+                users.find((u) => u.userId === m.senderId)?.username ||
+                m.senderId;
+              const time = new Date(m.createdAt).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+
+              return (
+                <div key={m.SK}>
+                  <strong>{sender}</strong> ({time}): {m.text}
+                </div>
+              );
+            })}
           </div>
 
           <form onSubmit={send}>
