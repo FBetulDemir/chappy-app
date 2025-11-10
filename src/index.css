@@ -6,8 +6,8 @@
 }
 
 .btn {
-  /* background-color: var(--secondary-color);
-  color: var(--third-color); */
+  background-color: var(--secondary-color);
+  color: var(--third-color);
   border: none;
   padding: 1em 2em;
   border-radius: 5px;

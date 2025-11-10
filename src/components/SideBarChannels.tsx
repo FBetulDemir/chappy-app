@@ -44,6 +44,11 @@ const SideBarChannels = () => {
           </NavLink>
         ))}
       </nav>
+      <div className="bottom-sidebar">
+        <NavLink to="/users" className="all-users-link">
+          All Users
+        </NavLink>
+      </div>
     </div>
   );
 };

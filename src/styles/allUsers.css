@@ -1,0 +1,17 @@
+.users-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2em;
+}
+
+.user-card {
+  border: 2px solid black;
+  padding: 1em 2em;
+  margin: 0.5em 1em;
+  background-color: var(--secondary-color);
+}
+
+.users-layout {
+  margin: 1em 0.5em;
+  text-align: center;
+}

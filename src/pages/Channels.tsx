@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import "../styles/channels.css";
 
 import SideBarChannels from "../components/SideBarChannels";
 

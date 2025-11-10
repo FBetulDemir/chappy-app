@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Channels from "./pages/Channels";
 import ChannelMessages from "./components/ChannelMessages";
+import AllUsers from "./components/AllUsers";
+import DirectMessages from "./components/DirectMessages";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/channels" element={<Channels />}>
             <Route path=":channelId" element={<ChannelMessages />} />
           </Route>
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/dm/:withUserId" element={<DirectMessages />} />
         </Routes>
       </BrowserRouter>
     </>

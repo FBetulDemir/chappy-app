@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import "../styles/channelMessages.css";
 
 const ChannelMessages = () => {
   const { channelId } = useParams();
@@ -73,11 +74,12 @@ const ChannelMessages = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {/* Message list */}
-      <div style={{ marginTop: "20px" }}>
+      <div className="channel-messages">
         {messages.map((m) => (
           <div key={m.SK}>
             <strong>{m.userId}: </strong>
             {m.text}
+            {/* <div className="time-stamp">{createdAt}</div> */}
           </div>
         ))}
       </div>
@@ -90,7 +92,9 @@ const ChannelMessages = () => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Skriv ett meddelande…"
           />
-          <button type="submit">Skicka</button>
+          <button type="submit" className="btn">
+            Skicka
+          </button>
         </form>
       )}
     </div>
