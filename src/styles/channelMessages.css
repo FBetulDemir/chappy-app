@@ -1,3 +1,11 @@
 .channel-messages {
   color: var(--third-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.channel-messages-wrapper {
+  color: var(--third-color);
 }

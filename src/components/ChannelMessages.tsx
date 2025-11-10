@@ -8,6 +8,7 @@ const ChannelMessages = () => {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
   const [locked, setLocked] = useState(false);
+  const [channelName, setChannelName] = useState("");
 
   // Load JWT if logged in
   const token = localStorage.getItem("jwt");
@@ -32,6 +33,7 @@ const ChannelMessages = () => {
     const data = await res.json();
     setMessages(data.messages || []);
     setLocked(data.locked);
+    setChannelName(data.name || "");
   }
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const ChannelMessages = () => {
 
   return (
     <div className="channel-messages-wrapper">
-      <h2># {channelId}</h2>
+      <h2># {channelName}</h2>
 
       {locked && <p>Låst kanal</p>}
 

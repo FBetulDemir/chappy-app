@@ -9,9 +9,14 @@
   padding: 1em 2em;
   margin: 0.5em 1em;
   background-color: var(--secondary-color);
+  color: var(--third-color);
 }
 
 .users-layout {
   margin: 1em 0.5em;
   text-align: center;
+}
+
+.user-avatar {
+  background-color: transparent;
 }
