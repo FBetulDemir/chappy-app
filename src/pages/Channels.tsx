@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import "../styles/channels.css";
-
 import SideBarChannels from "../components/SideBarChannels";
+import TopNav from "../components/TopNav";
 
 const Channels = () => {
   return (
@@ -9,9 +9,14 @@ const Channels = () => {
       <div className="left-side">
         <SideBarChannels />
       </div>
-      <main className="right-side content">
-        <Outlet />
-      </main>
+      <div className="right-side">
+        <header>
+          <TopNav />
+        </header>
+        <main className="right-side content">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

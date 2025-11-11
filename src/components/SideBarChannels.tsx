@@ -24,13 +24,15 @@ const SideBarChannels = () => {
       );
     })();
   }, []);
+
   return (
     <div className="side-bar">
       <div className="chat-icon">
         <img src={chatIcon} alt="" />
       </div>
-      <div className="side-title">KANALER</div>
+
       <nav className="channel-list">
+        <div className="side-title">KANALER</div>
         {channels.map((ch) => (
           <NavLink
             key={ch.channelId}
@@ -46,7 +48,10 @@ const SideBarChannels = () => {
       </nav>
       <div className="bottom-sidebar">
         <NavLink to="/users" className="all-users-link">
-          All Users
+          Alla användare
+        </NavLink>
+        <NavLink to="/channels/manage" className="all-users-link">
+          Alla Kanaler
         </NavLink>
       </div>
     </div>
