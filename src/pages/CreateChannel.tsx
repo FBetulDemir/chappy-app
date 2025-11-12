@@ -7,6 +7,7 @@ const CreateChannel = () => {
   const [description, setDescription] = useState("");
   const [locked, setLocked] = useState(false);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -15,19 +16,31 @@ const CreateChannel = () => {
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
 
+    setError("");
+    setMessage("");
+
+    if (!token) {
+      setError("Du måste vara inloggad för att skapa en kanal.");
+      return;
+    }
+
+    // Channel name validation
     if (!name.trim()) {
       setMessage("Kanalnamn krävs.");
       return;
     }
 
     try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const ownerName = payload.username;
+
       const res = await fetch("/api/channels/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: "Bearer " + token } : {}),
         },
-        body: JSON.stringify({ name, description, locked }),
+        body: JSON.stringify({ name, description, locked, ownerName }),
       });
 
       const data = await res.json();
@@ -36,7 +49,13 @@ const CreateChannel = () => {
         return;
       }
 
-      setMessage("Kanal skapad!");
+      // User must be logged in
+      if (res.status === 401) {
+        setError("Du måste vara inloggad för att skapa en kanal.");
+        return;
+      }
+      setMessage(`Kanal '${name}' skapad av ${ownerName}.`);
+      //with settimeout i give 1 second to show the message to the user before natigating to channels page
       setTimeout(() => navigate("/channels"), 1000);
     } catch (err) {
       console.error(err);
@@ -107,6 +126,7 @@ const CreateChannel = () => {
             </button>
           </div>
 
+          {error && <p className="status-message error">{error}</p>}
           {message && <p className="status-message">{message}</p>}
         </form>
       </div>

@@ -26,6 +26,7 @@ router.post(
     const { receiverId } = req.params;
     const { text } = req.body;
 
+    // trim removes all spaces, tabs, or newlines from the beginning and end of a string.
     if (!text?.trim()) {
       return res.status(400).json({ success: false, message: "Text required" });
     }

@@ -32,21 +32,21 @@ async function getUsernameByUserId(
 ): Promise<string | null> {
   if (!userId) return null;
 
-  let r = await db.send(
+  let res = await db.send(
     new GetCommand({
       TableName: tableName,
       Key: { PK: "USER", SK: `USER#${userId}` },
     })
   );
-  if (r.Item?.username) return String(r.Item.username);
+  if (res.Item?.username) return String(res.Item.username);
 
-  r = await db.send(
+  res = await db.send(
     new GetCommand({
       TableName: tableName,
       Key: { PK: `USER#${userId}`, SK: "META" },
     })
   );
-  if (r.Item?.username) return String(r.Item.username);
+  if (res.Item?.username) return String(res.Item.username);
 
   return null;
 }

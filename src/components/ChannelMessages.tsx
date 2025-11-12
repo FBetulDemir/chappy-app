@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "../styles/channelMessages.css";
 
+//to fix !!! even though logged in, the public channels still show sender as a guest.
+//timestamp is gonna be added
+
 const ChannelMessages = () => {
   const { channelId } = useParams();
   const [messages, setMessages] = useState<any[]>([]);
@@ -12,6 +15,7 @@ const ChannelMessages = () => {
 
   const token = localStorage.getItem("jwt");
 
+  //Sends a GET request to /api/messages/channel/:channelId.
   async function loadMessages() {
     setError("");
 
@@ -39,6 +43,7 @@ const ChannelMessages = () => {
     loadMessages();
   }, [channelId]);
 
+  //Sends a POST request to the backend with { channelId, text }
   async function sendMessage(e: any) {
     e.preventDefault();
     if (!input.trim()) return;
@@ -60,20 +65,6 @@ const ChannelMessages = () => {
     setInput("");
     loadMessages();
   }
-
-  // const [currentUser, setCurrentUser] = useState<{
-  //   username?: string;
-  //   userId?: string;
-  // } | null>(null);
-  // useEffect(() => {
-  //   if (!token) return;
-  //   try {
-  //     const payload = JSON.parse(atob(token.split(".")[1]));
-  //     setCurrentUser({ username: payload.username, userId: payload.userId });
-  //   } catch {
-  //     setCurrentUser(null);
-  //   }
-  // }, [token]);
 
   return (
     <div className="channel-messages-wrapper">

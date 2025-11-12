@@ -40,6 +40,7 @@ router.post("/", async (req: Request<{}, ChannelBody>, res: Response) => {
       type: "Channel",
       locked: !!locked,
       ownerId,
+      ownerName: maybePayload.username,
       createdAt: new Date().toISOString(),
       description: locked
         ? "Private channel — visible only to logged-in users"

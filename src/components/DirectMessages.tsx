@@ -25,11 +25,7 @@ const DirectMessages = () => {
     (async () => {
       const res = await fetch("/api/users");
       const data = await res.json();
-      const cleaned = data.map((u: any) => ({
-        userId: u.userId ?? u.SK.replace("USER#", ""),
-        username: u.username,
-      }));
-      setUsers(cleaned);
+      setUsers(data);
     })();
   }, []);
 
@@ -49,6 +45,8 @@ const DirectMessages = () => {
   // Send message
   async function send(e: any) {
     e.preventDefault();
+
+    //avoids sending empty messages
     if (!text.trim()) return;
 
     await fetch(`/api/messages/dm/${withUserId}`, {

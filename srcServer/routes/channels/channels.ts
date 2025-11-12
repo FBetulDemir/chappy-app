@@ -11,10 +11,14 @@ router.get("/", async (req: Request, res: Response) => {
     const result = await db.send(
       new ScanCommand({
         TableName: tableName,
-        FilterExpression: "begins_with(PK, :pk)",
+        FilterExpression: "begins_with(PK, :pk) AND SK = :meta",
         ExpressionAttributeValues: {
           ":pk": "CHANNEL#",
+          ":meta": "META",
         },
+        ProjectionExpression:
+          "PK, SK, channelId, #n, locked, ownerId, ownerName",
+        ExpressionAttributeNames: { "#n": "name" },
       })
     );
 

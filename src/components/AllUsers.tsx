@@ -11,15 +11,12 @@ function AllUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
+  //fetches data from backend endpoint /api/users
   useEffect(() => {
     (async () => {
       const result = await fetch("/api/users");
-      const raw = await result.json();
-      const cleaned = (raw || []).map((u: any) => ({
-        userId: u.userId ?? u.SK?.replace("USER#", ""),
-        username: u.username,
-      }));
-      setUsers(cleaned);
+      const data = await result.json();
+      setUsers(data);
       setLoading(false);
     })();
   }, []);
