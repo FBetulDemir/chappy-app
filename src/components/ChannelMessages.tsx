@@ -10,10 +10,8 @@ const ChannelMessages = () => {
   const [locked, setLocked] = useState(false);
   const [channelName, setChannelName] = useState("");
 
-  // Load JWT if logged in
   const token = localStorage.getItem("jwt");
 
-  // Fetch messages for channel
   async function loadMessages() {
     setError("");
 
@@ -31,8 +29,9 @@ const ChannelMessages = () => {
     }
 
     const data = await res.json();
+    console.log("API Response:", data);
     setMessages(data.messages || []);
-    setLocked(data.locked);
+    setLocked(Boolean(data.locked));
     setChannelName(data.name || "");
   }
 
@@ -40,7 +39,6 @@ const ChannelMessages = () => {
     loadMessages();
   }, [channelId]);
 
-  // Send new message
   async function sendMessage(e: any) {
     e.preventDefault();
     if (!input.trim()) return;
@@ -51,10 +49,7 @@ const ChannelMessages = () => {
         "Content-Type": "application/json",
         ...(token ? { Authorization: "Bearer " + token } : {}),
       },
-      body: JSON.stringify({
-        channelId,
-        text: input,
-      }),
+      body: JSON.stringify({ channelId, text: input }),
     });
 
     if (!res.ok) {
@@ -63,36 +58,46 @@ const ChannelMessages = () => {
     }
 
     setInput("");
-    // reload message list
     loadMessages();
   }
+
+  // const [currentUser, setCurrentUser] = useState<{
+  //   username?: string;
+  //   userId?: string;
+  // } | null>(null);
+  // useEffect(() => {
+  //   if (!token) return;
+  //   try {
+  //     const payload = JSON.parse(atob(token.split(".")[1]));
+  //     setCurrentUser({ username: payload.username, userId: payload.userId });
+  //   } catch {
+  //     setCurrentUser(null);
+  //   }
+  // }, [token]);
 
   return (
     <div className="channel-messages-wrapper">
       <h2># {channelName}</h2>
 
       {locked && <p>Låst kanal</p>}
-
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* Message list */}
       <div className="channel-messages">
         {messages.map((m) => (
-          <div key={m.SK}>
-            <strong>{m.userId}: </strong>
+          <div key={m.SK} className="message-item">
+            <strong>{m.username || m.userId || "Guest"}: </strong>
+
             {m.text}
-            {/* <div className="time-stamp">{createdAt}</div> */}
           </div>
         ))}
       </div>
 
-      {/* Message input */}
       {!error && (
         <form onSubmit={sendMessage}>
-          <input
+          <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Skriv ett meddelande…"
+            placeholder="Ditt meddelande ..."
           />
           <button type="submit" className="btn">
             Skicka

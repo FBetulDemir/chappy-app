@@ -72,6 +72,7 @@ export interface UserIdParam {
 
 export interface Payload {
   userId: string;
+  username: string;
   accessLevel: string;
 }
 

@@ -19,6 +19,7 @@ export function validateJwt(authHeader: string | undefined): Payload | null {
     const payload: Payload = {
       userId: decodedPayload.userId,
       accessLevel: decodedPayload.accessLevel,
+      username: decodedPayload.username,
     };
     return payload;
   } catch (error) {

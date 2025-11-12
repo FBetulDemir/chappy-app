@@ -27,6 +27,30 @@ async function getChannelLocked(channelId: string): Promise<boolean | null> {
   return !!result.Item.locked;
 }
 
+async function getUsernameByUserId(
+  userId?: string | null
+): Promise<string | null> {
+  if (!userId) return null;
+
+  let r = await db.send(
+    new GetCommand({
+      TableName: tableName,
+      Key: { PK: "USER", SK: `USER#${userId}` },
+    })
+  );
+  if (r.Item?.username) return String(r.Item.username);
+
+  r = await db.send(
+    new GetCommand({
+      TableName: tableName,
+      Key: { PK: `USER#${userId}`, SK: "META" },
+    })
+  );
+  if (r.Item?.username) return String(r.Item.username);
+
+  return null;
+}
+
 //send message to a channel
 router.post(
   "/channel",
@@ -50,6 +74,10 @@ router.post(
     const messageId = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
+    //With the helper function above, we can now get the username of the sender based on their userId from the JWT payload.
+    const username =
+      auth?.username ?? (await getUsernameByUserId(auth?.userId)) ?? "guest";
+
     await db.send(
       new PutCommand({
         TableName: tableName,
@@ -60,6 +88,7 @@ router.post(
           channelId,
           messageId,
           userId: auth?.userId ?? "guest",
+          username,
           text: text.trim(),
           createdAt,
         },
@@ -111,6 +140,7 @@ router.get(
       success: true,
       locked,
       messages: output.Items ?? [],
+      username: output.Items,
     });
   }
 );
