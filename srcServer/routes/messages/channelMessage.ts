@@ -68,7 +68,9 @@ router.post(
     }
     const locked = await getChannelLocked(channelId);
     // Only require auth for locked channels
-    const auth = locked ? requireUser(req, res) : null;
+    const auth = locked
+      ? requireUser(req, res)
+      : validateJwt(req.headers.authorization);
     if (locked && !auth) return;
 
     const messageId = crypto.randomUUID();
