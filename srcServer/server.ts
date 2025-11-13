@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import usersRouter from "./routes/users/users.js";
 import { logger } from "./middleware.js";
 import channelRouter from "./routes/channels/channels.js";
@@ -14,6 +15,9 @@ import dmPostRouter from "./routes/messages/sendDm.js";
 
 const app = express();
 const port: number = Number(process.env.PORT) || 1337;
+
+// const FRONTEND = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+// app.use(cors({ origin: [FRONTEND, "http://localhost:5173"] }));
 
 app.use(express.static("./dist/"));
 app.use(express.json());
