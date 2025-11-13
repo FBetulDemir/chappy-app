@@ -7,6 +7,8 @@ import Channels from "./pages/Channels";
 import ChannelMessages from "./components/ChannelMessages";
 import AllUsers from "./components/AllUsers";
 import DirectMessages from "./components/DirectMessages";
+import CreateChannel from "./pages/CreateChannel";
+import ChannelList from "./pages/ChannelList";
 
 function App() {
   return (
@@ -16,11 +18,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/channels/manage" element={<ChannelList />} />
           <Route path="/channels" element={<Channels />}>
             <Route path=":channelId" element={<ChannelMessages />} />
           </Route>
           <Route path="/users" element={<AllUsers />} />
           <Route path="/dm/:withUserId" element={<DirectMessages />} />
+          <Route path="/createChannel" element={<CreateChannel />}></Route>
         </Routes>
       </BrowserRouter>
     </>

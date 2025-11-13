@@ -11,6 +11,11 @@ router.delete(
   "/:userId",
   async (req: Request<UserIdParam>, res: Response<void>) => {
     const userIdToDelete: string = req.params.userId;
+    console.log("Attempting to delete user with ID:", userIdToDelete);
+    console.log("Looking for Key:", {
+      PK: "USER",
+      SK: `USER#${userIdToDelete}`,
+    });
 
     const maybePayload: Payload | null = validateJwt(
       req.headers["authorization"]
