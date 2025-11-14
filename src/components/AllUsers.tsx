@@ -73,6 +73,11 @@ function AllUsers() {
 
   return (
     <div className="users-layout">
+      <div className="back-to-channels">
+        <Link to="/channels" className="back-link">
+          Tillbaka
+        </Link>
+      </div>
       <div className="users-main">
         <h1 className="users-title">Alla Användare</h1>
         {status && <p className="users-status">{status}</p>}

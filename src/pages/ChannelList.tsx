@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import "../styles/channelList.css";
 
 type Channel = {
   PK: string;
@@ -20,31 +21,23 @@ const ChannelList = () => {
   //Stores the id of the channel that delete button is clicked (to show confirmation).
   const [confirmId, setConfirmId] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("");
+  // current logged in user id (decoded from JWT)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("jwt");
 
-  // current logged in user id (decoded from JWT)
-  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-
-  function parseJwtUserId(tkn: string | null): string | null {
-    if (!tkn) return null;
+  const decodeJwtUserId = (token: string | null) => {
     try {
-      const parts = tkn.split(".");
-      if (parts.length < 2) return null;
-      // base64 decode payload
-      const payload = JSON.parse(
-        window.atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
-      );
-      return payload.userId || payload.sub || null;
+      return token ? JSON.parse(atob(token.split(".")[1])).userId : null;
     } catch {
       return null;
     }
-  }
+  };
 
   useEffect(() => {
-    setCurrentUserId(parseJwtUserId(token));
-    console.log(currentUserId);
+    const userid = decodeJwtUserId(token);
+    setCurrentUserId(userid);
   }, [token]);
 
   //loading channels from backend
@@ -109,9 +102,11 @@ const ChannelList = () => {
   return (
     <div className="channel-list-page">
       <div className="channel-list-header">
-        <h1>Alla kanaler</h1>
         <Link to="/createChannel" className="btn btn-primary">
           Skapa kanal
+        </Link>
+        <Link to="/channels" className="btn btn-secondary">
+          Tillbaka
         </Link>
       </div>
 
@@ -119,6 +114,7 @@ const ChannelList = () => {
       {status && <div className="inline-status">{status}</div>}
 
       <div className="channel-list-table">
+        <h1 className="title-channels">Alla kanaler</h1>
         {/* <div className="row head">
           <div>Namn </div>
           <div>Synlighet</div>
@@ -134,7 +130,12 @@ const ChannelList = () => {
                 <Link to={`/channels/${c.channelId}`}># {c.name}</Link>
               </div>
               <div>Synlighet: {c.locked ? "Låst" : "Öppen"}</div>
-              <div>Ägare {c.ownerName || c.ownerId}</div>
+              {/* <div>Ägare {c.ownerName || c.ownerId}</div> */}
+              <div className="owner-info">
+                {isOwner
+                  ? "Det är din kanal — du kan ta bort den."
+                  : "Det är inte din kanal — du kan inte ta bort den."}
+              </div>
 
               <div className="actions">
                 {confirmId === c.channelId ? (

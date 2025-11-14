@@ -1,22 +1,52 @@
-.users-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2em;
-}
-
 .user-card {
-  border: 2px solid black;
-  padding: 1em 2em;
-  margin: 0.5em 1em;
-  background-color: var(--secondary-color);
-  color: var(--third-color);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  background-color: #4a5259;
+  margin: 2em 1em;
 }
 
-.users-layout {
-  margin: 1em 0.5em;
+.users-title {
   text-align: center;
+  margin-top: 2em;
 }
 
 .user-avatar {
-  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f7b948;
+  font-size: 22px;
+}
+
+.user-name {
+  flex: 1;
+  font-size: 16px;
+  background-color: #4a5259;
+}
+
+.user-dm-btn:hover {
+  color: #f7b948;
+}
+
+.user-dm-btn,
+.user-delete .btn-danger {
+  min-width: 180px;
+  text-align: center;
+  background-color: #4a5259;
+}
+
+.confirm-row {
+  background-color: #4a5259;
+  display: flex;
+  gap: 1em;
+}
+
+.user-delete {
+  background-color: #4a5259;
 }
