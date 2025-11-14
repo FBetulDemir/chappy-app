@@ -1,0 +1,151 @@
+.dm-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.chat-icon-dm {
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chat-icon-dm img {
+  background-color: var(--primary-color);
+  width: 5em;
+  height: 5em;
+  margin: 2em 0;
+}
+
+.dm-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dm-appname {
+  color: #f7b948;
+  font-weight: 700;
+}
+
+.dm-list {
+  padding: 1em 0.5em;
+}
+
+.dm-list h2 {
+  margin: 1em 0;
+  font-size: 18px;
+  color: #e7e7e7;
+}
+
+.dm-people {
+  display: grid;
+  gap: 8px;
+}
+.dm-person {
+  display: block;
+  padding: 0.8em 1em;
+  margin: 0.1em 0.5em;
+  border-radius: 10px;
+  background-color: #2b3035;
+  color: #e7e7e7;
+  text-decoration: none;
+  border: 1px solid #434a52;
+}
+.dm-person:hover {
+  background-color: #343a40;
+}
+.dm-person.is-active {
+  outline: 2px solid #f7b948;
+}
+
+/* Right side */
+.back-to-channels {
+  text-align: right;
+  padding: 1em 0.7em;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  gap: 1.2em;
+  padding: 2em 2.2em;
+  margin: 5em 0;
+}
+
+.dm-thread {
+  border-top: 1px solid #2e3237;
+  padding-top: 12px;
+  display: grid;
+  gap: 12px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.dm-bubble {
+  background-color: #2b3035;
+  color: #e7e7e7;
+  border: 1px solid #2f353b;
+  border-radius: 14px;
+  padding: 0.8em 1.2em;
+}
+.dm-bubble.me {
+  margin-left: auto;
+  background-color: #2b3035;
+  border-color: #384150;
+}
+.dm-box {
+  font-size: 16px;
+  margin-bottom: 0.7em;
+  display: flex;
+  gap: 0.5em;
+  background-color: #2b3035;
+}
+
+.dm-who {
+  font-weight: 700;
+  background-color: #2b3035;
+}
+.dm-time {
+  background-color: #2b3035;
+}
+
+.dm-text {
+  background-color: #2b3035;
+}
+
+/* Input row */
+form {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  gap: 10px;
+}
+
+.dm-inputbar {
+  height: 48px;
+  background: #22262b;
+  color: #e7e7e7;
+  border: 1px solid #2f353b;
+  border-radius: 10px;
+  padding: 0 12px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid #f7b948;
+}
+.btn-primary {
+  background: #f7b948;
+  color: #1b1d20;
+}
+.btn-primary:hover {
+  background: #f5a623;
+}
+
+.dm-empty {
+  opacity: 0.8;
+  padding-top: 24px;
+}
