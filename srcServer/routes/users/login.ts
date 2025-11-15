@@ -5,17 +5,20 @@ import type { JwtResponse, UserBody, UserItem } from "../../data/types.js";
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { db, tableName } from "../../data/dynamoDb.js";
 import { compare } from "bcrypt";
+import { loginSchema } from "../../validation/validation.js";
 
 const router: Router = express.Router();
 
 router.post(
   "/",
   async (
-    req: Request<{}, JwtResponse | void, UserBody>,
-    res: Response<JwtResponse | void>
+    req: Request<{}, JwtResponse | { error: string } | void, UserBody>,
+    res: Response<JwtResponse | { error: string } | void>
   ) => {
-    //Add guest user without inloggning
-
+    const bodyParse = loginSchema.safeParse(req.body);
+    if (!bodyParse.success) {
+      return res.status(400).json({ error: "Invalid channel data" });
+    }
     const body: UserBody = req.body;
     console.log("body", body);
 

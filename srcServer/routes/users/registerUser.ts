@@ -2,16 +2,10 @@ import express from "express";
 import type { Router, Request, Response } from "express";
 import { PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { db, tableName } from "../../data/dynamoDb.js";
-import type {
-  RegisterBody,
-  RegisterResponse,
-  UserBody,
-  UserItem,
-} from "../../data/types.js";
+import type { RegisterBody, RegisterResponse } from "../../data/types.js";
 import { genSalt, hash } from "bcrypt";
 import { createToken } from "../../auth/auth.js";
 import crypto from "crypto";
-
 import { registerSchema } from "../../validation/validation.js";
 
 const router: Router = express.Router();
