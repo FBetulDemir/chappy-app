@@ -1,0 +1,100 @@
+.create-channel-page {
+  min-height: 100vh;
+  color: #e8e8e8;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4em 2em;
+}
+
+.create-channel-container {
+  width: 100%;
+  max-width: 46em;
+}
+
+.back-link {
+  background-color: transparent;
+  border: 0;
+  color: #f7b948;
+  font-size: 0.95em;
+  cursor: pointer;
+  margin-bottom: 2em;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: 700;
+  margin: 0 0 2em 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4em;
+}
+
+.input {
+  width: 70%;
+  align-self: center;
+  padding: 1em 1.2em;
+  background: #2a2d31;
+  border: 0.08em solid #4b5157;
+  border-radius: 0.7em;
+  color: #e7e7e7;
+  font-size: 1em;
+}
+
+.visibility-section {
+  margin: 0.4em 1.5em;
+  align-self: flex-start;
+}
+
+.visibility-label {
+  font-size: 0.95em;
+  margin-bottom: 0.6em;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin: 0.4em 0;
+  font-size: 0.98em;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.btn {
+  padding: 0.9em 2.2em;
+  border-radius: 0.6em;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.cancel-btn {
+  background: transparent;
+  color: #e8e8e8;
+  border: 0.1em solid #f7b948;
+}
+
+.create-btn {
+  background: #f7b948;
+  color: #1b1d20;
+  border: 0;
+}
+
+.status-message {
+  text-align: center;
+  font-size: 0.95em;
+  margin-top: 1em;
+  color: #d8d8d8;
+}

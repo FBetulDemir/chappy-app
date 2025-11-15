@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="home-card">
-        <div className="chat-icon">
+        <div className="chat-icon-home img-bg">
           <img src={chatIcon} alt="" />
         </div>
         <h1>Välkommen till Chappy!</h1>

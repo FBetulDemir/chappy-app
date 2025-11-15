@@ -5,10 +5,14 @@
   justify-content: center;
   height: 50vh;
   color: var(--third-color);
+  h1 {
+    margin-bottom: 1em;
+  }
 }
 
 .submit-btn {
   background-color: var(--secondary-color);
+  align-self: center;
 }
 
 .login-form {
@@ -20,6 +24,25 @@
   input {
     color: var(--third-color);
   }
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #3a4047;
+  background-color: #2b3035;
+  color: var(--third-color);
+  font-size: 0.95rem;
+}
+
+.login-form input::placeholder {
+  color: #7f868f;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
 }
 
 .msg {
@@ -34,11 +57,15 @@
   color: #3ddc84;
 }
 
+.back-home {
+  margin: 1em 2em;
+}
+
 .back-link {
   color: var(--logo-color);
   padding: 2em;
 }
 
-.back-home {
-  margin: 1em 2em;
+.back-link:hover {
+  color: #f7dfbc;
 }

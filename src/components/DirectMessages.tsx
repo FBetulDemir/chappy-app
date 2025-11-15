@@ -21,7 +21,6 @@ const DirectMessages = () => {
   const [text, setText] = useState("");
 
   const token = localStorage.getItem("jwt");
-  const navigate = useNavigate();
 
   // Load all users
   useEffect(() => {

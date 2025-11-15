@@ -70,7 +70,7 @@ const ChannelMessages = () => {
     <div className="channel-messages-wrapper">
       <h2># {channelName}</h2>
 
-      {locked && <p>Låst kanal</p>}
+      {/* {locked && <p>Låst kanal</p>} */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div className="channel-messages">
