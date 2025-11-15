@@ -15,6 +15,7 @@ router.post(
     req: Request<{}, JwtResponse | { error: string } | void, UserBody>,
     res: Response<JwtResponse | { error: string } | void>
   ) => {
+    // validate body
     const bodyParse = loginSchema.safeParse(req.body);
     if (!bodyParse.success) {
       return res.status(400).json({ error: "Invalid channel data" });
@@ -39,7 +40,6 @@ router.post(
       return;
     }
 
-    // validate items with zod
     const users: UserItem[] = output.Items as UserItem[];
     const found: UserItem | undefined = users.find(
       (user) => user.username === body.username

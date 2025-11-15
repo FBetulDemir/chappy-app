@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+Chappy — Real-Time Chat Application (React + Node + DynamoDB)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Chappy is a full-stack chat application built with React, TypeScript, Express, JWT Authentication, and AWS DynamoDB.
+Users can:
 
-Currently, two official plugins are available:
+-Register & log in
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-Create public or locked channels
 
-## React Compiler
+-Send messages in channels
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-Send private messages (DM)
 
-## Expanding the ESLint configuration
+-Delete their own accounts
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-Manage their own channels
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+-A modern UI built with CSS and React Router
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+This project was developed as part of the FED24 course (Fullstack).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+📌 Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🔐 Authentication
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Register and login with JWT
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Passwords safely hashed using bcrypt
+
+Logged-in user stored in localStorage
+
+💬 Channels
+
+Create channel (open or locked)
+
+Only the channel owner can delete it
+
+Messages show username & timestamp
+
+Locked channels require login
+
+📨 Direct Messages
+
+Private DM between two users
+
+Same message stored for both users
+
+Clean sidebar UI for DM list + conversation
+
+👤 User Profiles
+
+Each user can delete only their own account
+
+Users list page
+
+“Send message” button for each user
+
+🌐 Deployment
+
+The app is deployed on Render:
+
+👉 https://chappy-app-hk0i.onrender.com
+
+Frontend
+
+        React (TypeScript)
+
+        React Router
+
+        Zustand (state management)
+
+        Zod (form validation)
+
+        Custom CSS
+
+        Vite build system
+
+Backend
+
+Node.js + Express
+
+        TypeScript
+
+        JWT authentication
+
+        DynamoDB (AWS)
+
+        AWS SDK v3
+
+        bcrypt for password hashing
+
+Infrastructure
+
+        Render (server deployment)
+
+        GitHub (repository hosting)
+
+        DynamoDB (NoSQL database)
