@@ -16,9 +16,14 @@
   gap: 1em;
 }
 
-.chat-icon {
+.chat-icon-home {
   font-size: 3rem;
   margin-bottom: 2em;
+  /* background-color: var(--primary-color); */
+}
+
+.img-bg {
+  background-color: var(--primary-color);
 }
 
 .btn-primary {

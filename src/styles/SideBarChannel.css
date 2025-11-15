@@ -8,16 +8,16 @@
   min-height: 100vh;
 }
 
-.chat-icon {
+.side-bar-chat-icon {
   background-color: var(--side-nav-bg-color);
   display: flex;
   justify-content: center;
 }
 
-.chat-icon img {
+.side-bar-chat-icon img {
   background-color: var(--side-nav-bg-color);
-  width: 3em;
-  height: 3em;
+  width: 5em;
+  height: 5em;
 }
 
 .side-title {

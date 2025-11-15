@@ -1,11 +1,57 @@
-.channel-messages {
-  color: var(--third-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+.channel-messages-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  background-color: transparent;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-.channel-messages-wrapper {
-  color: var(--third-color);
+.channel-messages-wrapper > h2 {
+  font-size: 1.7em;
+  font-weight: 700;
+  margin-bottom: 1em;
+  background-color: transparent;
+}
+
+.channel-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em 1.5em;
+}
+
+.message-item {
+  color: #e9eaec;
+  font-size: 1em;
+}
+
+.channel-messages-wrapper form {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: transparent;
+}
+
+.channel-messages-wrapper textarea {
+  background: #2a2d31;
+  border: 0.1em solid #464b51;
+  color: #e7e7e7;
+  border-radius: 0.8em;
+  padding: 1em;
+  font-size: 1em;
+  min-height: 6em;
+}
+
+.channel-messages-wrapper .btn {
+  background-color: #f7b948;
+  border: 0;
+  border-radius: 0.6em;
+  padding: 1em 2em;
+  color: #1b1d20;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-end;
 }

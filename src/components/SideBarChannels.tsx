@@ -27,7 +27,7 @@ const SideBarChannels = () => {
 
   return (
     <div className="side-bar">
-      <div className="chat-icon">
+      <div className="side-bar-chat-icon">
         <img src={chatIcon} alt="" />
       </div>
 

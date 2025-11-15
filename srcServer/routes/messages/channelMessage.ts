@@ -119,6 +119,15 @@ router.get(
         .json({ success: false, message: "Channel not found" });
     }
 
+    // fetch channel META to get the name
+    const metaResult = await db.send(
+      new GetCommand({
+        TableName: tableName,
+        Key: { PK: `CHANNEL#${channelId}`, SK: "META" },
+      })
+    );
+    const channelName = String(metaResult.Item?.name ?? "");
+
     // require login (requireUser) only if locked
     if (locked) {
       const auth = requireUser(req, res);
@@ -141,6 +150,7 @@ router.get(
     return res.json({
       success: true,
       locked,
+      name: channelName,
       messages: output.Items ?? [],
       username: output.Items,
     });
