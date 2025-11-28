@@ -19,7 +19,10 @@ const port: number = Number(process.env.PORT) || 1337;
 // const FRONTEND = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 // app.use(cors({ origin: [FRONTEND, "http://localhost:5173"] }));
 
-app.use(express.static("./dist/"));
+import path from "path";
+app.use(express.static(path.resolve("dist")));
+
+// app.use(express.static("./dist/"));
 app.use(express.json());
 app.use("/", logger);
 
