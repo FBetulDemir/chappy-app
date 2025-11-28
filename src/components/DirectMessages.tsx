@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import "../styles/directMessages.css";
 import chatIcon from "../assets/carbon_chat-bot.png";
 

@@ -25,6 +25,7 @@ const ChannelMessages = () => {
 
     if (res.status === 401) {
       setError("Denna kanal är låst. Du måste logga in.");
+      console.log(locked);
       return;
     }
     if (res.status === 404) {
