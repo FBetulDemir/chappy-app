@@ -1,4 +1,6 @@
-Chappy — Real-Time Chat Application (React + Node + DynamoDB)
+Chappy — Real-Time Chat Application (React + Node + DynamoDB)`
+
+> ℹ️ The application UI is currently in Swedish.
 
 Chappy is a full-stack chat application built with React, TypeScript, Express, JWT Authentication, and AWS DynamoDB.
 Users can:
