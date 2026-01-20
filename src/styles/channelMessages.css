@@ -2,6 +2,7 @@
   margin: 0 auto;
   width: 100%;
   background-color: transparent;
+
   form {
     display: flex;
     flex-direction: column;
@@ -15,24 +16,58 @@
   background-color: transparent;
 }
 
+/* the chat box */
 .channel-messages {
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  padding: 1em 1.5em;
+  gap: 0.8em;
+
+  padding: 1em 1.2em;
+
+  background: #1f2226;
+  border: 0.1em solid #343a40;
+  border-radius: 1em;
+
+  max-height: 420px;
+  overflow-y: auto;
+
+  /* scrolling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(247, 185, 72, 0.6) rgba(255, 255, 255, 0.06);
 }
 
+/* each message */
 .message-item {
   color: #e9eaec;
   font-size: 1em;
+  line-height: 1.35;
+  background: #23272b;
+  border: 0.1em solid #343a40;
+  border-radius: 0.9em;
+  padding: 0.9em 1em;
+}
+
+/*removes that black highlight behind the username */
+.message-item strong {
+  background: transparent !important;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.message-item mark,
+.message-item code {
+  background: transparent !important;
 }
 
 .channel-messages-wrapper form {
-  margin-top: 2em;
+  margin-top: 1.2em;
   display: flex;
   flex-direction: column;
   gap: 1em;
   background-color: transparent;
+  .btn {
+    margin-bottom: 4em;
+  }
 }
 
 .channel-messages-wrapper textarea {
@@ -43,6 +78,12 @@
   padding: 1em;
   font-size: 1em;
   min-height: 6em;
+  outline: none;
+}
+
+.channel-messages-wrapper textarea:focus {
+  border-color: rgba(247, 185, 72, 0.7);
+  box-shadow: 0 0 0 0.25em rgba(247, 185, 72, 0.15);
 }
 
 .channel-messages-wrapper .btn {
@@ -54,4 +95,8 @@
   font-weight: 700;
   cursor: pointer;
   align-self: flex-end;
+}
+
+.channel-messages-wrapper .btn:hover {
+  filter: brightness(1.03);
 }
