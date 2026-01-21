@@ -9,8 +9,8 @@ const ChannelMessages = () => {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
 
-  // locked = requires auth
-  const [locked, setLocked] = useState(false);
+  // // locked = requires auth
+  // const [locked, setLocked] = useState(false);
 
   // accessDenied = got 401
   const [accessDenied, setAccessDenied] = useState(false);
@@ -20,9 +20,8 @@ const ChannelMessages = () => {
   const reqSeq = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
 
-  // IMPORTANT: compute token each render (so UI reflects login changes)
-  const token = localStorage.getItem("jwt");
-  const isLoggedIn = !!token;
+  // const token = localStorage.getItem("jwt");
+  // const isLoggedIn = !!token;
 
   async function loadMessages(id?: string) {
     const cid = id ?? channelId;
@@ -80,7 +79,7 @@ const ChannelMessages = () => {
       if (seq !== reqSeq.current) return;
 
       setMessages(data.messages || []);
-      setLocked(Boolean(data.locked)); // channel requires auth, but you may have it
+      setLocked(Boolean(data.locked));
       setChannelName(data.name || "");
       setAccessDenied(false);
       setError("");
@@ -98,7 +97,6 @@ const ChannelMessages = () => {
   useEffect(() => {
     loadMessages(channelId);
     return () => abortRef.current?.abort();
-    // NOTE: if login happens without changing channelId, you may want to reload manually
   }, [channelId]);
 
   async function sendMessage(e: any) {
