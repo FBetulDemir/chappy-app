@@ -9,8 +9,8 @@ const ChannelMessages = () => {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
 
-  // // locked = requires auth
-  // const [locked, setLocked] = useState(false);
+  // locked = requires auth
+  const [locked, setLocked] = useState(false);
 
   // accessDenied = got 401
   const [accessDenied, setAccessDenied] = useState(false);
@@ -20,8 +20,8 @@ const ChannelMessages = () => {
   const reqSeq = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
 
-  // const token = localStorage.getItem("jwt");
-  // const isLoggedIn = !!token;
+  const token = localStorage.getItem("jwt");
+  const isLoggedIn = !!token;
 
   async function loadMessages(id?: string) {
     const cid = id ?? channelId;
@@ -111,6 +111,8 @@ const ChannelMessages = () => {
       },
       body: JSON.stringify({ channelId, text: input }),
     });
+
+    console.log(isLoggedIn, locked);
 
     if (res.status === 401) {
       setAccessDenied(true);
