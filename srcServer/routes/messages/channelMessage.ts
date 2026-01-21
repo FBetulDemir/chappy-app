@@ -21,14 +21,14 @@ async function getChannelLocked(channelId: string): Promise<boolean | null> {
     new GetCommand({
       TableName: tableName,
       Key: { PK: `CHANNEL#${channelId}`, SK: "META" },
-    })
+    }),
   );
   if (!result.Item) return null;
   return !!result.Item.locked;
 }
 
 async function getUsernameByUserId(
-  userId?: string | null
+  userId?: string | null,
 ): Promise<string | null> {
   if (!userId) return null;
 
@@ -36,7 +36,7 @@ async function getUsernameByUserId(
     new GetCommand({
       TableName: tableName,
       Key: { PK: "USER", SK: `USER#${userId}` },
-    })
+    }),
   );
   if (res.Item?.username) return String(res.Item.username);
 
@@ -44,7 +44,7 @@ async function getUsernameByUserId(
     new GetCommand({
       TableName: tableName,
       Key: { PK: `USER#${userId}`, SK: "META" },
-    })
+    }),
   );
   if (res.Item?.username) return String(res.Item.username);
 
@@ -56,7 +56,7 @@ router.post(
   "/channel",
   async (
     req: Request<{}, MessageResponse, MessageBody>,
-    res: Response<MessageResponse>
+    res: Response<MessageResponse>,
   ) => {
     const { channelId, text } = req.body;
 
@@ -94,7 +94,7 @@ router.post(
           text: text.trim(),
           createdAt,
         },
-      })
+      }),
     );
 
     res.status(201).json({
@@ -102,7 +102,7 @@ router.post(
       messageId,
       createdAt,
     });
-  }
+  },
 );
 
 //get all messages in a channel
@@ -124,7 +124,7 @@ router.get(
       new GetCommand({
         TableName: tableName,
         Key: { PK: `CHANNEL#${channelId}`, SK: "META" },
-      })
+      }),
     );
     const channelName = String(metaResult.Item?.name ?? "");
 
@@ -144,7 +144,7 @@ router.get(
           ":pk": `CHANNEL#${channelId}`,
           ":sk": "MSG#",
         },
-      })
+      }),
     );
 
     return res.json({
@@ -154,7 +154,7 @@ router.get(
       messages: output.Items ?? [],
       username: output.Items,
     });
-  }
+  },
 );
 
 export default router;
