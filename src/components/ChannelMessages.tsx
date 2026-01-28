@@ -2,56 +2,56 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import "../styles/channelMessages.css";
 
+interface Message {
+  SK?: string;
+  messageId?: string;
+  userId?: string;
+  username?: string;
+  text: string;
+  createdAt?: string;
+}
+
 const ChannelMessages = () => {
   const { channelId } = useParams();
 
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
-
-  // locked = requires auth
-  const [locked, setLocked] = useState(false);
-
-  // accessDenied = got 401
+  const [loading, setLoading] = useState(false);
   const [accessDenied, setAccessDenied] = useState(false);
-
   const [channelName, setChannelName] = useState("");
 
-  const reqSeq = useRef(0);
-  const abortRef = useRef<AbortController | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const prevMessageCountRef = useRef(0);
 
   const token = localStorage.getItem("jwt");
-  const isLoggedIn = !!token;
 
-  async function loadMessages(id?: string) {
-    const cid = id ?? channelId;
-    if (!cid) return;
+  function scrollToBottom() {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
-    reqSeq.current += 1;
-    const seq = reqSeq.current;
-
-    abortRef.current?.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
-
-    // clear stale UI immediately
+  // Initial load - clears state and shows loading
+  async function loadMessages(cid: string) {
     setError("");
     setAccessDenied(false);
     setMessages([]);
     setChannelName("");
-    setLocked(false);
+    setLoading(true);
+    prevMessageCountRef.current = 0;
 
+    await fetchMessages(cid);
+    setLoading(false);
+  }
+
+  // Fetch messages without clearing state (used for polling)
+  async function fetchMessages(cid: string) {
     try {
       const res = await fetch(`/api/messages/channel/${cid}`, {
         headers: token ? { Authorization: "Bearer " + token } : {},
-        signal: controller.signal,
       });
-
-      if (seq !== reqSeq.current) return;
 
       if (res.status === 401) {
         setAccessDenied(true);
-        setLocked(true);
         setMessages([]);
         setChannelName("");
         setError("Denna kanal är låst. Du måste logga in.");
@@ -60,7 +60,6 @@ const ChannelMessages = () => {
 
       if (res.status === 404) {
         setAccessDenied(false);
-        setLocked(false);
         setMessages([]);
         setChannelName("");
         setError("Kanal hittades inte");
@@ -68,38 +67,48 @@ const ChannelMessages = () => {
       }
 
       if (!res.ok) {
-        setAccessDenied(false);
-        setMessages([]);
-        setChannelName("");
         setError("Kunde inte hämta meddelanden.");
         return;
       }
 
       const data = await res.json();
-      if (seq !== reqSeq.current) return;
+      const newMessages = data.messages || [];
 
-      setMessages(data.messages || []);
-      setLocked(Boolean(data.locked));
+      setMessages(newMessages);
       setChannelName(data.name || "");
       setAccessDenied(false);
       setError("");
-    } catch (e: any) {
-      if (e?.name === "AbortError") return;
-      if (seq !== reqSeq.current) return;
 
-      setAccessDenied(false);
-      setMessages([]);
-      setChannelName("");
-      setError("Något gick fel vid hämtning av kanalen.");
+      // Only scroll to bottom if new messages arrived
+      if (newMessages.length > prevMessageCountRef.current) {
+        setTimeout(scrollToBottom, 50);
+      }
+      prevMessageCountRef.current = newMessages.length;
+
+    } catch {
+      // Silent fail for polling - don't clear messages on network error
     }
   }
 
+  // Load on channel change
   useEffect(() => {
-    loadMessages(channelId);
-    return () => abortRef.current?.abort();
+    if (channelId) {
+      loadMessages(channelId);
+    }
   }, [channelId]);
 
-  async function sendMessage(e: any) {
+  // Poll for new messages every 5 seconds
+  useEffect(() => {
+    if (!channelId || accessDenied) return;
+
+    const interval = setInterval(() => {
+      fetchMessages(channelId);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [channelId, accessDenied, token]);
+
+  async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
     if (!input.trim() || !channelId) return;
 
@@ -112,11 +121,8 @@ const ChannelMessages = () => {
       body: JSON.stringify({ channelId, text: input }),
     });
 
-    console.log(isLoggedIn, locked);
-
     if (res.status === 401) {
       setAccessDenied(true);
-      setLocked(true);
       setMessages([]);
       setError("Denna kanal är låst. Du måste logga in.");
       return;
@@ -128,40 +134,56 @@ const ChannelMessages = () => {
     }
 
     setInput("");
-    loadMessages(channelId);
+    // Fetch immediately after sending
+    fetchMessages(channelId);
+  }
+
+  function formatTime(dateStr?: string) {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleTimeString("sv-SE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 
   return (
     <div className="channel-messages-wrapper">
       <h2># {channelName}</h2>
 
-      {error && (
-        <p
-          style={{
-            color: "red",
-            margin: "2em",
-            backgroundColor: "transparent",
-          }}>
-          {error}
-        </p>
-      )}
+      {error && <div className="error-message">{error}</div>}
 
       <div className="channel-messages">
+        {loading && messages.length === 0 && (
+          <div className="loading-indicator">Laddar meddelanden...</div>
+        )}
+
+        {!loading && messages.length === 0 && !error && (
+          <div className="empty-state">
+            <p>Inga meddelanden än. Var först att skriva!</p>
+          </div>
+        )}
+
         {messages.map((m) => (
           <div key={m.SK ?? m.messageId} className="message-item">
-            <strong>{m.username || m.userId || "Guest"}: </strong>
-            {m.text}
+            <div className="message-header">
+              <span className="username">
+                {m.username || m.userId || "Gäst"}
+              </span>
+              <span className="timestamp">{formatTime(m.createdAt)}</span>
+            </div>
+            <div className="text">{m.text}</div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* block the form only if no access */}
       {!accessDenied && (
         <form onSubmit={sendMessage}>
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ditt meddelande ..."
+            placeholder="Skriv ett meddelande..."
           />
           <button type="submit" className="btn">
             Skicka

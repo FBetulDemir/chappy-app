@@ -7,10 +7,11 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="home-card">
-        <div className="chat-icon-home img-bg">
-          <img src={chatIcon} alt="" />
+        <div className="chat-icon-home">
+          <img src={chatIcon} alt="Chappy logo" />
         </div>
         <h1>Välkommen till Chappy!</h1>
+        <p className="tagline">Chatta med vem du vill</p>
 
         <button className="btn btn-primary" onClick={() => navigate("/login")}>
           Logga in

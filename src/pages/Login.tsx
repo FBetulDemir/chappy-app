@@ -46,8 +46,6 @@ const Login = () => {
       if (data.success) {
         const jwt: string = data.token;
         localStorage.setItem(LS_KEY, jwt);
-
-        console.log("Inloggningen lyckades", formData.username);
         setLoginSuccessMessage("Inloggningen lyckades!");
         navigate("/channels");
       } else {

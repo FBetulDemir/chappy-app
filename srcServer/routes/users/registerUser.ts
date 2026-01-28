@@ -74,7 +74,7 @@ router.post(
     });
     try {
       await db.send(command);
-      const token: string | null = createToken(newId);
+      const token: string = createToken(newId, username);
       res.send({ success: true, token: token });
     } catch (error) {
       console.log(`registerUser.ts fel:`, (error as any)?.message);

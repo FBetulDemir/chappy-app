@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import "../styles/directMessages.css";
 import chatIcon from "../assets/carbon_chat-bot.png";
@@ -7,6 +7,7 @@ type User = {
   userId: string;
   username: string;
 };
+
 type DM = {
   SK: string;
   senderId: string;
@@ -19,39 +20,74 @@ const DirectMessages = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [messages, setMessages] = useState<DM[]>([]);
   const [text, setText] = useState("");
+  const [error, setError] = useState("");
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem("jwt");
+
+  let currentUserId = "";
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      currentUserId = payload.userId || "";
+    } catch {
+      // Invalid token
+    }
+  }
+
+  function scrollToBottom() {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
   // Load all users
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/users");
-      const data = await res.json();
-      setUsers(data);
+      if (res.ok) {
+        const data = await res.json();
+        setUsers(data);
+      }
     })();
   }, []);
 
   // Load messages with selected user
-  useEffect(() => {
+  async function loadMessages() {
     if (!withUserId) return;
-    (async () => {
-      const res = await fetch(`/api/messages/dm/${withUserId}`, {
-        headers: token ? { Authorization: "Bearer " + token } : {},
-      });
 
+    const res = await fetch(`/api/messages/dm/${withUserId}`, {
+      headers: token ? { Authorization: "Bearer " + token } : {},
+    });
+
+    if (res.ok) {
       const data = await res.json();
       setMessages(data || []);
-    })();
+    }
+  }
+
+  useEffect(() => {
+    loadMessages();
+  }, [withUserId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // Poll for new messages
+  useEffect(() => {
+    if (!withUserId) return;
+
+    const interval = setInterval(loadMessages, 5000);
+    return () => clearInterval(interval);
   }, [withUserId]);
 
   // Send message
-  async function send(e: any) {
+  async function send(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
 
-    //avoids sending empty messages
     if (!text.trim()) return;
 
-    await fetch(`/api/messages/dm/${withUserId}`, {
+    const res = await fetch(`/api/messages/dm/${withUserId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,25 +96,38 @@ const DirectMessages = () => {
       body: JSON.stringify({ text }),
     });
 
-    setText("");
+    if (!res.ok) {
+      if (res.status === 401) {
+        setError("Du måste vara inloggad för att skicka meddelanden.");
+      } else {
+        setError("Kunde inte skicka meddelandet.");
+      }
+      return;
+    }
 
-    // Reload messages
-    const res = await fetch(`/api/messages/dm/${withUserId}`, {
-      headers: token ? { Authorization: "Bearer " + token } : {},
-    });
-    setMessages(await res.json());
+    setText("");
+    loadMessages();
   }
+
+  function formatTime(dateStr: string) {
+    const date = new Date(dateStr);
+    return date.toLocaleTimeString("sv-SE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
   return (
     <div className="dm-container">
       <div className="left">
         <div className="dm-brand">
           <div className="chat-icon-dm">
-            <img src={chatIcon} alt="" />
+            <img src={chatIcon} alt="Chappy" />
           </div>
           <div className="dm-appname">Chappy</div>
         </div>
         <div className="dm-list">
-          <h2>Privata meddelande</h2>
+          <h2>Privata meddelanden</h2>
           <div className="dm-people">
             {users.map((u) => (
               <Link
@@ -94,47 +143,62 @@ const DirectMessages = () => {
         </div>
       </div>
 
-      {/* right side messages */}
       <div className="right">
         <div className="back-to-channels">
           <Link to="/channels" className="back-link">
-            Tillbaka
+            Tillbaka till kanaler
           </Link>
         </div>
-        {withUserId && (
+
+        {withUserId ? (
           <>
             <div className="dm-thread">
               <h3>
-                Chat with {users.find((u) => u.userId === withUserId)?.username}
+                Chat med {users.find((u) => u.userId === withUserId)?.username}
               </h3>
+
+              {messages.length === 0 && (
+                <div className="dm-empty">
+                  <p>Inga meddelanden än. Starta konversationen!</p>
+                </div>
+              )}
+
               {messages.map((m) => {
                 const sender =
                   users.find((u) => u.userId === m.senderId)?.username ||
                   m.senderId;
-                const time = new Date(m.createdAt).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                });
+                const isMe = m.senderId === currentUserId;
 
                 return (
-                  <div key={m.SK}>
-                    <div className="dm-bubble">
-                      <div className="dm-box">
-                        <span className="dm-who">{sender}</span>
-                        <span className="dm-time">{time}</span>
-                      </div>
-                      <div className="dm-text">{m.text}</div>
+                  <div key={m.SK} className={`dm-bubble ${isMe ? "me" : ""}`}>
+                    <div className="dm-box">
+                      <span className="dm-who">{sender}</span>
+                      <span className="dm-time">{formatTime(m.createdAt)}</span>
                     </div>
+                    <div className="dm-text">{m.text}</div>
                   </div>
                 );
               })}
+              <div ref={messagesEndRef} />
             </div>
+
+            {error && (
+              <div
+                style={{
+                  padding: "0.75em 1.5em",
+                  background: "var(--error-bg)",
+                  color: "var(--error)",
+                  borderTop: "1px solid var(--error)",
+                }}>
+                {error}
+              </div>
+            )}
 
             <form onSubmit={send}>
               <input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Skriv…"
+                placeholder="Skriv ett meddelande..."
                 className="dm-inputbar"
               />
               <button type="submit" className="btn btn-primary dm-send">
@@ -142,6 +206,10 @@ const DirectMessages = () => {
               </button>
             </form>
           </>
+        ) : (
+          <div className="dm-empty" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <p>Välj en person att chatta med</p>
+          </div>
         )}
       </div>
     </div>

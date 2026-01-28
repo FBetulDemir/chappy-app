@@ -1,151 +1,238 @@
 .dm-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  background: var(--bg-surface);
 }
 
-.chat-icon-dm {
-  background-color: var(--primary-color);
+/* Left sidebar */
+.left {
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-.chat-icon-dm img {
-  background-color: var(--primary-color);
-  width: 5em;
-  height: 5em;
-  margin: 2em 0;
 }
 
 .dm-brand {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1.5em;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-icon-dm {
+  display: flex;
+  justify-content: center;
+}
+
+.chat-icon-dm img {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 0 10px rgba(247, 185, 72, 0.2));
 }
 
 .dm-appname {
-  color: #f7b948;
+  color: var(--accent);
   font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 0.5em;
 }
 
 .dm-list {
-  padding: 1em 0.5em;
+  padding: 1em;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .dm-list h2 {
-  margin: 1em 0;
-  font-size: 18px;
-  color: #e7e7e7;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1em;
 }
 
 .dm-people {
-  display: grid;
-  gap: 8px;
-}
-.dm-person {
-  display: block;
-  padding: 0.8em 1em;
-  margin: 0.1em 0.5em;
-  border-radius: 10px;
-  background-color: #2b3035;
-  color: #e7e7e7;
-  text-decoration: none;
-  border: 1px solid #434a52;
-}
-.dm-person:hover {
-  background-color: #343a40;
-}
-.dm-person.is-active {
-  outline: 2px solid #f7b948;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
-/* Right side */
-.back-to-channels {
-  text-align: right;
-  padding: 1em 0.7em;
+.dm-person {
+  display: block;
+  padding: 0.75em 1em;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-elevated);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  font-size: 0.95rem;
 }
+
+.dm-person:hover {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.dm-person.is-active {
+  background-color: var(--bg-surface);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Right side - Chat area */
 .right {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  gap: 1.2em;
-  padding: 2em 2.2em;
-  margin: 5em 0;
+  height: 100vh;
+  background: var(--bg-surface);
+}
+
+.back-to-channels {
+  padding: 1em 1.5em;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.back-to-channels .back-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: color 0.2s;
+}
+
+.back-to-channels .back-link:hover {
+  color: var(--accent-hover);
+}
+
+.back-to-channels .back-link::before {
+  content: "\2190";
 }
 
 .dm-thread {
-  border-top: 1px solid #2e3237;
-  padding-top: 12px;
-  display: grid;
-  gap: 12px;
+  flex: 1;
+  padding: 1.5em;
   overflow-y: auto;
-  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
+
+.dm-thread h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5em;
+  padding-bottom: 0.75em;
+  border-bottom: 1px solid var(--border);
+}
+
 .dm-bubble {
-  background-color: #2b3035;
-  color: #e7e7e7;
-  border: 1px solid #2f353b;
-  border-radius: 14px;
-  padding: 0.8em 1.2em;
+  max-width: 70%;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.85em 1.1em;
 }
+
 .dm-bubble.me {
   margin-left: auto;
-  background-color: #2b3035;
-  border-color: #384150;
+  background-color: var(--accent-subtle);
+  border-color: var(--accent);
 }
+
 .dm-box {
-  font-size: 16px;
-  margin-bottom: 0.7em;
   display: flex;
-  gap: 0.5em;
-  background-color: #2b3035;
+  align-items: baseline;
+  gap: 0.75em;
+  margin-bottom: 0.35em;
 }
 
 .dm-who {
-  font-weight: 700;
-  background-color: #2b3035;
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.9rem;
 }
+
 .dm-time {
-  background-color: #2b3035;
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .dm-text {
-  background-color: #2b3035;
-}
-
-/* Input row */
-form {
-  display: grid;
-  grid-template-columns: 1fr 120px;
-  gap: 10px;
-}
-
-.dm-inputbar {
-  height: 48px;
-  background: #22262b;
-  color: #e7e7e7;
-  border: 1px solid #2f353b;
-  border-radius: 10px;
-  padding: 0 12px;
-}
-
-.btn {
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  border: 1px solid #f7b948;
-}
-.btn-primary {
-  background: #f7b948;
-  color: #1b1d20;
-}
-.btn-primary:hover {
-  background: #f5a623;
+  font-size: 0.95rem;
+  line-height: 1.45;
 }
 
 .dm-empty {
-  opacity: 0.8;
-  padding-top: 24px;
+  text-align: center;
+  padding: 3em;
+  color: var(--text-muted);
+}
+
+/* Input area */
+.right form {
+  display: flex;
+  gap: 0.75em;
+  padding: 1em 1.5em;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+}
+
+.dm-inputbar {
+  flex: 1;
+  height: 48px;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0 1em;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dm-inputbar::placeholder {
+  color: var(--text-muted);
+}
+
+.dm-inputbar:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+.dm-send {
+  padding: 0 1.5em;
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.dm-send:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .dm-container {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    display: none;
+  }
+
+  .dm-bubble {
+    max-width: 85%;
+  }
 }

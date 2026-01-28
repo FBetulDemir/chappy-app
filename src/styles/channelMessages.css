@@ -1,102 +1,154 @@
 .channel-messages-wrapper {
   margin: 0 auto;
+  max-width: 900px;
   width: 100%;
-  background-color: transparent;
-
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px - 4em);
 }
 
 .channel-messages-wrapper > h2 {
-  font-size: 1.7em;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1em;
-  background-color: transparent;
+  color: var(--text-primary);
 }
 
-/* the chat box */
 .channel-messages {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.8em;
-
-  padding: 1em 1.2em;
-
-  background: #1f2226;
-  border: 0.1em solid #343a40;
-  border-radius: 1em;
-
-  max-height: 420px;
+  gap: 0.75em;
+  padding: 1.25em;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   overflow-y: auto;
-
-  /* scrolling */
+  min-height: 200px;
+  max-height: 100%;
   scrollbar-width: thin;
-  scrollbar-color: rgba(247, 185, 72, 0.6) rgba(255, 255, 255, 0.06);
+  scrollbar-color: var(--accent) var(--bg-elevated);
 }
 
-/* each message */
+.channel-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.channel-messages::-webkit-scrollbar-track {
+  background: var(--bg-elevated);
+  border-radius: 4px;
+}
+
+.channel-messages::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
 .message-item {
-  color: #e9eaec;
-  font-size: 1em;
-  line-height: 1.35;
-  background: #23272b;
-  border: 0.1em solid #343a40;
-  border-radius: 0.9em;
-  padding: 0.9em 1em;
+  padding: 0.85em 1em;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s;
 }
 
-/*removes that black highlight behind the username */
-.message-item strong {
-  background: transparent !important;
-  color: #ffffff;
-  font-weight: 800;
+.message-item:hover {
+  background: var(--bg-surface);
 }
 
-.message-item mark,
-.message-item code {
-  background: transparent !important;
+.message-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  margin-bottom: 0.35em;
+}
+
+.message-item .username {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.message-item .timestamp {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.message-item .text {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3em;
+  color: var(--text-muted);
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+}
+
+.error-message {
+  padding: 1em;
+  background: var(--error-bg);
+  border: 1px solid var(--error);
+  border-radius: var(--radius-md);
+  color: var(--error);
+  margin-bottom: 1em;
 }
 
 .channel-messages-wrapper form {
-  margin-top: 1.2em;
+  margin-top: 1em;
   display: flex;
-  flex-direction: column;
-  gap: 1em;
-  background-color: transparent;
-  .btn {
-    margin-bottom: 4em;
-  }
+  gap: 0.75em;
+  align-items: flex-end;
 }
 
 .channel-messages-wrapper textarea {
-  background: #2a2d31;
-  border: 0.1em solid #464b51;
-  color: #e7e7e7;
-  border-radius: 0.8em;
-  padding: 1em;
-  font-size: 1em;
-  min-height: 6em;
+  flex: 1;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  padding: 0.85em 1em;
+  font-size: 0.95rem;
+  min-height: 80px;
+  max-height: 200px;
+  resize: vertical;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.channel-messages-wrapper textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .channel-messages-wrapper textarea:focus {
-  border-color: rgba(247, 185, 72, 0.7);
-  box-shadow: 0 0 0 0.25em rgba(247, 185, 72, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
 }
 
 .channel-messages-wrapper .btn {
-  background-color: #f7b948;
-  border: 0;
-  border-radius: 0.6em;
-  padding: 1em 2em;
-  color: #1b1d20;
-  font-weight: 700;
+  background-color: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.85em 1.5em;
+  color: var(--bg-primary);
+  font-weight: 600;
   cursor: pointer;
-  align-self: flex-end;
+  transition: background-color 0.2s, transform 0.2s;
+  white-space: nowrap;
 }
 
 .channel-messages-wrapper .btn:hover {
-  filter: brightness(1.03);
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 2em;
+  color: var(--text-muted);
 }

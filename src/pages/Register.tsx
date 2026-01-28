@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/Register.css";
 import "../index.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface FormData {
   username: string;
@@ -22,6 +22,8 @@ const Register = () => {
   const [registerSuccessMessage, setRegisterSuccessMessage] =
     useState<string>("");
 
+  const navigate = useNavigate();
+
   const handleSubmitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setRegisterErrorMessage("");
@@ -41,10 +43,9 @@ const Register = () => {
     if (data.success) {
       const jwt: string = data.token;
       localStorage.setItem(LS_KEY, jwt);
-      console.log("Registration lyckades", formData.username);
-      setRegisterSuccessMessage("Registration lyckades!");
+      setRegisterSuccessMessage("Registreringen lyckades!");
+      setTimeout(() => navigate("/channels"), 800);
     } else {
-      console.log("Registreringen misslyckades.");
       setRegisterErrorMessage("Registreringen misslyckades. Försök igen.");
     }
   };

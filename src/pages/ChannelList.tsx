@@ -49,7 +49,6 @@ const ChannelList = () => {
       return;
     }
     const data: Channel[] = await res.json();
-    console.log(data);
     setChannels(data);
   }
 

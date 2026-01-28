@@ -121,7 +121,7 @@ const CreateChannel = () => {
               Avbryt
             </button>
 
-            <button type="submit" className="create-btn">
+            <button type="submit" className="btn create-btn">
               Skapa kanal
             </button>
           </div>

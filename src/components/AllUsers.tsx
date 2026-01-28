@@ -90,40 +90,46 @@ function AllUsers() {
 
             return (
               <div key={u.userId} className="user-card">
-                <div className="user-avatar">👤</div>
-                <h2 className="user-name">{u.username}</h2>
+                <div className="user-card-header">
+                  <div className="user-avatar">
+                    {u.username.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="user-name">{u.username}</span>
+                </div>
 
-                <Link className="user-dm-btn" to={`/dm/${u.userId}`}>
-                  Skicka meddelande
-                </Link>
+                <div className="user-card-actions">
+                  <Link className="user-dm-btn" to={`/dm/${u.userId}`}>
+                    Skicka meddelande
+                  </Link>
 
-                {isMe && (
-                  <div className="user-delete">
-                    {!isConfirming ? (
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => setConfirmId(u.userId)}
-                        disabled={busyId === u.userId}>
-                        Radera mitt konto
-                      </button>
-                    ) : (
-                      <div className="confirm-row">
-                        <button
-                          className="btn btn-cancel"
-                          onClick={() => setConfirmId(null)}
-                          disabled={busyId === u.userId}>
-                          Avbryt
-                        </button>
+                  {isMe && (
+                    <div className="user-delete">
+                      {!isConfirming ? (
                         <button
                           className="btn btn-danger"
-                          onClick={() => handleDeleteSelf(u.userId)}
+                          onClick={() => setConfirmId(u.userId)}
                           disabled={busyId === u.userId}>
-                          {"Bekräfta"}
+                          Radera mitt konto
                         </button>
-                      </div>
-                    )}
-                  </div>
-                )}
+                      ) : (
+                        <div className="confirm-row">
+                          <button
+                            className="btn-cancel"
+                            onClick={() => setConfirmId(null)}
+                            disabled={busyId === u.userId}>
+                            Avbryt
+                          </button>
+                          <button
+                            className="btn-danger"
+                            onClick={() => handleDeleteSelf(u.userId)}
+                            disabled={busyId === u.userId}>
+                            Bekräfta
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}

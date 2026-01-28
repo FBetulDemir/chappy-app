@@ -1,101 +1,180 @@
-.channel-list-header a {
-  width: 10%;
-  text-align: center;
-  text-decoration: none;
-  color: var(--third-color);
-}
-
-.title-channels {
-  text-align: center;
-  margin: 2em 0;
-  background-color: #000000;
-}
-
 .channel-list-page {
-  padding: 24px 32px;
-  color: var(--third-color);
+  min-height: 100vh;
+  padding: 2em;
+  background: var(--bg-secondary);
 }
 
 .channel-list-header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 1em;
+  margin-bottom: 1.5em;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.channel-list-header .btn {
+  padding: 0.7em 1.25em;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.channel-list-header .btn-primary {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+}
+
+.channel-list-header .btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.channel-list-header .btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.channel-list-header .btn-secondary:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
 }
 
 .inline-status {
-  margin-bottom: 16px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background-color: #3b1f1f;
-  color: #ffd7d7;
+  max-width: 900px;
+  margin: 0 auto 1em;
+  padding: 0.85em 1.25em;
+  border-radius: var(--radius-md);
+  background-color: var(--error-bg);
+  color: var(--error);
+  border: 1px solid var(--error);
   font-size: 0.9rem;
 }
 
+.title-channels {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 1em;
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+}
+
 .channel-list-table {
-  border-radius: 14px;
-  background-color: #000000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
 }
 
 .channel-list-table .row {
   display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr) minmax(0, 1.3fr) auto;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr) auto;
   align-items: center;
-  padding: 12px 18px;
-  border-bottom: 1px solid #333941;
-  column-gap: 12px;
+  padding: 1em 1.5em;
+  border-bottom: 1px solid var(--border);
+  column-gap: 1em;
+  transition: background-color 0.15s;
 }
 
 .channel-list-table .row:last-child {
   border-bottom: none;
 }
 
+.channel-list-table .row:hover {
+  background-color: var(--bg-elevated);
+}
+
 .channel-list-table a {
-  color: var(--third-color);
+  color: var(--accent);
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
 }
 
 .channel-list-table a:hover {
+  color: var(--accent-hover);
   text-decoration: underline;
 }
 
 .channel-list-table .row > div {
   font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.owner-info {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 .channel-list-table .empty {
-  padding: 12px 0;
+  padding: 2em;
+  text-align: center;
   font-size: 0.95rem;
-  color: #cfd3d7;
+  color: var(--text-muted);
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 0.5em;
 }
 
 .btn-confirm {
-  border-radius: 999px;
-  padding: 6px 14px;
+  padding: 0.5em 1em;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  background: var(--border);
 }
 
 .btn-danger {
-  border-radius: 999px;
-  padding: 6px 14px;
+  padding: 0.5em 1em;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid var(--error);
+  color: var(--error);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
 }
 
-@media (max-width: 720px) {
+.btn-danger:hover:not(:disabled) {
+  background: var(--error);
+  color: white;
+}
+
+.btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
   .channel-list-table .row {
     grid-template-columns: 1fr;
-    align-items: flex-start;
-    row-gap: 6px;
+    gap: 0.75em;
+    padding: 1.25em;
   }
 
   .actions {
     justify-content: flex-start;
+    padding-top: 0.5em;
+  }
+
+  .owner-info {
+    font-size: 0.8rem;
   }
 }

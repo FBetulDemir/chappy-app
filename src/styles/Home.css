@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary-color);
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  padding: 2em;
 }
 
 .home-card {
@@ -10,52 +12,67 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--third-color);
-  padding: 2em 4em;
+  padding: 3em 4em;
   text-align: center;
-  gap: 1em;
+  gap: 1.25em;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .chat-icon-home {
-  font-size: 3rem;
-  margin-bottom: 2em;
-  /* background-color: var(--primary-color); */
+  margin-bottom: 0.5em;
 }
 
-.img-bg {
-  background-color: var(--primary-color);
+.chat-icon-home img {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 20px rgba(247, 185, 72, 0.3));
 }
 
-.btn-primary {
-  background-color: #fca311;
-  border: none;
-  color: #000;
+.home-card h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25em;
+}
+
+.home-card .tagline {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1em;
+}
+
+.home-card .btn {
   width: 100%;
+  padding: 0.9em 1.5em;
+  font-size: 1rem;
 }
 
-.btn-primary:hover {
-  background-color: #ffb733;
+.divider {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0.5em 0;
 }
 
-.btn-secondary {
-  background-color: transparent;
-  border: 2px solid #fca311;
-  color: var(--third-color);
-  width: 100%;
-}
-
-.btn-secondary:hover {
-  background-color: #fca311;
-  color: #000;
-}
-
-.btn-guest {
-  background-color: #fca311;
-  border: 2px solid #fff8f8;
-  color: #000;
-  width: 100%;
-}
-
-.btn-guest:hover {
-  background-color: #ffb733;
+@media (max-width: 480px) {
+  .home-card {
+    padding: 2em 1.5em;
+    margin: 1em;
+  }
 }

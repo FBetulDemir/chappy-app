@@ -21,7 +21,6 @@ router.post(
       return res.status(400).json({ error: "Invalid channel data" });
     }
     const body: UserBody = req.body;
-    console.log("body", body);
 
     const command = new QueryCommand({
       TableName: tableName,
@@ -35,7 +34,6 @@ router.post(
     });
     const output = await db.send(command);
     if (!output.Items) {
-      console.log("No items from db");
       res.sendStatus(404);
       return;
     }
@@ -45,7 +43,6 @@ router.post(
       (user) => user.username === body.username
     );
     if (!found) {
-      console.log("No matching user");
       res.sendStatus(401);
       return;
     }
@@ -53,14 +50,12 @@ router.post(
     const passwordMatch: boolean = await compare(body.password, found.password);
 
     if (!passwordMatch) {
-      console.log("Wrong password", body.password, found.password);
       res.sendStatus(401);
       return;
     }
 
     // sk = 'USER#id'
-    console.log("Found user", found);
-    const token: string = createToken(found.SK.substring(5));
+    const token: string = createToken(found.SK.substring(5), found.username);
     res.send({ success: true, token: token });
   }
 );

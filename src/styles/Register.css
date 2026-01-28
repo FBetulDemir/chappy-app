@@ -1,52 +1,107 @@
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
 .register-card {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
-  color: var(--third-color);
+  padding: 2em;
 }
 
-.submit-btn {
-  background-color: var(--secondary-color);
+.register-card h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5em;
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  color: var(--third-color);
-  gap: 1em;
-  input {
-    color: var(--third-color);
-    height: 2.5em;
-    margin-top: 1em;
-    border-radius: 12px;
-  }
+  gap: 1.25em;
+  width: 100%;
+  max-width: 360px;
+  padding: 2.5em;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
-.register-form input placeholder {
-  padding: 1em;
-  text-align: center;
+.register-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.register-form label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.85em 1em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.register-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+.submit-btn {
+  margin-top: 0.5em;
+  padding: 0.9em 1.5em;
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .msg {
-  display: block;
-  margin-top: 0.75rem;
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.75em 1em;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-top: 0.5em;
 }
+
 .msg.error {
-  color: #ff6b6b;
+  background-color: var(--error-bg);
+  color: var(--error);
+  border: 1px solid var(--error);
 }
+
 .msg.success {
-  color: #3ddc84;
-}
-
-.back-link {
-  color: var(--logo-color);
-  padding: 2em;
-}
-
-.back-home {
-  margin: 1em 2em;
+  background-color: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success);
 }
