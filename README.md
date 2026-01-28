@@ -1,100 +1,59 @@
-Chappy — Real-Time Chat Application (React + Node + DynamoDB)`
+# Chappy — Real-Time Chat Application
 
-> ℹ️ The application UI is currently in Swedish.
+A full-stack chat application built with **React + TypeScript**, **Node/Express**, **JWT authentication**, and **AWS DynamoDB**.
 
-Chappy is a full-stack chat application built with React, TypeScript, Express, JWT Authentication, and AWS DynamoDB.
-Users can:
+> ℹ️ The user interface is currently in **Swedish**.
 
--Register & log in
+**Live demo:** https://chappy-app-hk0i.onrender.com
 
--Create public or locked channels
+---
 
--Send messages in channels
+## Features
 
--Send private messages (DM)
+- **Authentication**
+  - Register/login with JWT
+  - Passwords hashed with bcrypt
+  - Session persisted in localStorage
+- **Channels**
+  - Create **public** or **locked** channels
+  - Channel owner can delete/manage their channels
+  - Messages display **username** and **timestamp**
+  - Locked channels require login to access
+- **Direct Messages (DM)**
+  - Private 1:1 messaging between users
+  - DM list + conversation UI
+- **User & Account Management**
+  - Users list with “Send message”
+  - Users can delete **only their own** accounts
 
--Delete their own accounts
+This project was developed as part of the **FED24 (Fullstack)** course.
 
--Manage their own channels
+---
 
--A modern UI built with CSS and React Router
+## Tech Stack
 
-This project was developed as part of the FED24 course (Fullstack).
+**Frontend**
+- React (TypeScript), React Router
+- Zustand (state management)
+- Zod (form validation)
+- Custom CSS, Vite
 
-📌 Features
+**Backend**
+- Node.js + Express (TypeScript)
+- JWT auth, bcrypt
+- AWS DynamoDB, AWS SDK v3
 
-🔐 Authentication
+**Infrastructure**
+- Render (deployment)
+- GitHub (source control)
+- DynamoDB (NoSQL database)
 
-Register and login with JWT
+---
 
-Passwords safely hashed using bcrypt
+## Local Development (high-level)
 
-Logged-in user stored in localStorage
+1. Install dependencies for frontend and backend (depending on your repo structure).
+2. Configure environment variables (JWT secret + DynamoDB/AWS settings).
+3. Start the backend, then start the frontend.
 
-💬 Channels
-
-Create channel (open or locked)
-
-Only the channel owner can delete it
-
-Messages show username & timestamp
-
-Locked channels require login
-
-📨 Direct Messages
-
-Private DM between two users
-
-Same message stored for both users
-
-Clean sidebar UI for DM list + conversation
-
-👤 User Profiles
-
-Each user can delete only their own account
-
-Users list page
-
-“Send message” button for each user
-
-🌐 Deployment
-
-The app is deployed on Render:
-
-👉 https://chappy-app-hk0i.onrender.com
-
-Frontend
-
-        React (TypeScript)
-
-        React Router
-
-        Zustand (state management)
-
-        Zod (form validation)
-
-        Custom CSS
-
-        Vite build system
-
-Backend
-
-        Node.js + Express
-
-        TypeScript
-
-        JWT authentication
-
-        DynamoDB (AWS)
-
-        AWS SDK v3
-
-        bcrypt for password hashing
-
-Infrastructure
-
-        Render (server deployment)
-
-        GitHub (repository hosting)
-
-        DynamoDB (NoSQL database)
+---
