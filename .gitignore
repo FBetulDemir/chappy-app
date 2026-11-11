@@ -26,3 +26,5 @@ dist-ssr
 
 distServer/
 .env
+# Local AI agent rules
+CLAUDE.md
